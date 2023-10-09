@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import AppTopbar from './AppTopbar.vue'
+import AppSidebar from '@/layouts/AppSidebar.vue'
+
 import { ref } from 'vue'
 
 const containerClass = ref()
@@ -10,7 +12,7 @@ const containerClass = ref()
     layout
     <app-topbar></app-topbar>
     <div class="layout-sidebar">
-      <!-- <app-sidebar></app-sidebar> -->
+      <app-sidebar></app-sidebar>
     </div>
     <div class="layout-main-container">
       <div class="layout-main">

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useLayout } from '@/layouts/composables/layout'
-// import { useLayout } from '@/layout/composables/layout'
 import { useRouter } from 'vue-router'
 
 const { layoutConfig, onMenuToggle } = useLayout()
 
-const outsideClickListener = ref(null)
+const outsideClickListener = ref()
+// const outsideClickListener = ref(null)
 const topbarMenuActive = ref(false)
 const router = useRouter()
 
@@ -27,7 +27,7 @@ const onTopBarMenuButton = () => {
 }
 const onSettingsClick = () => {
   topbarMenuActive.value = false
-  router.push('/documentation')
+  router.push('/login')
 }
 const topbarMenuClasses = computed(() => {
   return {
@@ -35,9 +35,19 @@ const topbarMenuClasses = computed(() => {
   }
 })
 
+// const bindOutsideClickListener = () => {
+//   if (!outsideClickListener.value) {
+//     outsideClickListener.value = (event: any) => {
+//       if (isOutsideClicked(event)) {
+//         topbarMenuActive.value = false
+//       }
+//     }
+//     document.addEventListener('click', outsideClickListener.value)
+//   }
+// }
 const bindOutsideClickListener = () => {
   if (!outsideClickListener.value) {
-    outsideClickListener.value = (event) => {
+    outsideClickListener.value = (event: MouseEvent) => {
       if (isOutsideClicked(event)) {
         topbarMenuActive.value = false
       }
@@ -47,21 +57,27 @@ const bindOutsideClickListener = () => {
 }
 const unbindOutsideClickListener = () => {
   if (outsideClickListener.value) {
-    document.removeEventListener('click', outsideClickListener)
+    document.removeEventListener('click', outsideClickListener.value)
     outsideClickListener.value = null
   }
 }
-const isOutsideClicked = (event) => {
+// const unbindOutsideClickListener = () => {
+//   if (outsideClickListener.value) {
+//     document.removeEventListener('click', outsideClickListener)
+//     outsideClickListener.value = null
+//   }
+// }
+const isOutsideClicked = (event: any) => {
   if (!topbarMenuActive.value) return
 
   const sidebarEl = document.querySelector('.layout-topbar-menu')
   const topbarEl = document.querySelector('.layout-topbar-menu-button')
 
   return !(
-    sidebarEl.isSameNode(event.target) ||
-    sidebarEl.contains(event.target) ||
-    topbarEl.isSameNode(event.target) ||
-    topbarEl.contains(event.target)
+    sidebarEl?.isSameNode(event.target) ||
+    sidebarEl?.contains(event.target) ||
+    topbarEl?.isSameNode(event.target) ||
+    topbarEl?.contains(event.target)
   )
 }
 </script>
