@@ -26,13 +26,13 @@ const router = createRouter({
           component: () => import('../views/PlaceHolder.vue')
         }
       ]
-    }
+    },
 
-    // {
-    //   path: '/auth/login',
-    //   name: 'login',
-    //   component: () => import('@/views/pages/auth/Login.vue')
-    // }
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/auth/Login.vue')
+    }
   ]
 })
 

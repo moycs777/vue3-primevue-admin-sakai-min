@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AppTopbar from './AppTopbar.vue';
+import AppTopbar from './AppTopbar.vue'
 import { ref } from 'vue'
 
 const containerClass = ref()
