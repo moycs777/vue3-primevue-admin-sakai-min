@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import AppMenuItem from './AppMenuItem.vue'
 // import AppMenuItem from '@/layouts/AppMenuItem.vue'
 
-interface MenuItem {
+export interface MenuItemDashboard {
   label: string
   separator?: boolean // Make separator optional
   items: {
@@ -14,12 +14,20 @@ interface MenuItem {
   }[]
 }
 
-const menuOptions = ref<MenuItem[]>([
+const menuOptions = ref<MenuItemDashboard[]>([
   {
     label: '',
     items: [
       { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
-      { label: 'Login', icon: 'pi pi-fw pi-home', to: '/login' }
+      {
+        label: 'Usuarios sin cuenta',
+        icon: 'pi pi-fw pi-user-minus',
+        to: '/clients-without-account'
+      },
+      { label: 'Clientes', icon: 'pi pi-fw pi-users', to: '/clientes' },
+      { label: 'Aliados de Negocios', icon: 'pi pi-fw pi-sitemap', to: '/business-allies' },
+      { label: 'Consolidado', icon: 'pi pi-fw pi-chart-bar', to: '/general-balance' },
+      { label: 'Salir', icon: 'pi pi-fw pi-sign-out', to: '/logout' }
     ]
   }
   // {

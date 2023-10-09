@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onBeforeMount, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useLayout } from '../layouts/composables/layout'
-// import { useLayout } from '@/layout/composables/layout'
+import { useLayout } from '@/layouts/composables/layout'
 
 const route = useRoute()
 
@@ -10,8 +9,8 @@ const { layoutConfig, layoutState, setActiveMenuItem, onMenuToggle } = useLayout
 
 const props = defineProps({
   item: {
-    type: Object,
-    default: () => ({})
+    type: Object as any,
+    default: () => ({}) as any
   },
   index: {
     type: Number,
@@ -28,7 +27,7 @@ const props = defineProps({
 })
 
 const isActiveMenu = ref(false)
-const itemKey = ref(null)
+const itemKey = ref<any>('')
 
 onBeforeMount(() => {
   itemKey.value = props.parentItemKey
@@ -43,13 +42,12 @@ onBeforeMount(() => {
 
 watch(
   () => layoutConfig.activeMenuItem.value,
-  (newVal) => {
+  (newVal: any) => {
     // isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-')
-    isActiveMenu.value =
-      newVal === itemKey.value || (newVal as string).startsWith(itemKey.value + '-')
+    isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-')
   }
 )
-const itemClick = (event: any, item: any, index?: any) => {
+const itemClick = (event: any, item: any) => {
   if (item.disabled) {
     event.preventDefault()
     return
@@ -87,7 +85,7 @@ const checkActiveRoute = (item: any) => {
     <a
       v-if="(!item.to || item.items) && item.visible !== false"
       :href="item.url"
-      @click="itemClick($event, item, index)"
+      @click="itemClick($event, item)"
       :class="item.class"
       :target="item.target"
       tabindex="0"
@@ -98,7 +96,7 @@ const checkActiveRoute = (item: any) => {
     </a>
     <router-link
       v-if="item.to && !item.items && item.visible !== false"
-      @click="itemClick($event, item, index)"
+      @click="itemClick($event, item)"
       :class="[item.class, { 'active-route': checkActiveRoute(item) }]"
       tabindex="0"
       :to="item.to"
