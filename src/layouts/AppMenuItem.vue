@@ -23,7 +23,7 @@ const props = defineProps({
   },
   parentItemKey: {
     type: String,
-    default: null
+    default: ''
   }
 })
 
@@ -35,7 +35,7 @@ onBeforeMount(() => {
     ? props.parentItemKey + '-' + props.index
     : String(props.index)
 
-  const activeItem = layoutState.activeMenuItem
+  const activeItem = (layoutState.activeMenuItem.value as String) ?? ''
 
   isActiveMenu.value =
     activeItem === itemKey.value || activeItem ? activeItem.startsWith(itemKey.value + '-') : false
@@ -44,10 +44,12 @@ onBeforeMount(() => {
 watch(
   () => layoutConfig.activeMenuItem.value,
   (newVal) => {
-    isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-')
+    // isActiveMenu.value = newVal === itemKey.value || newVal.startsWith(itemKey.value + '-')
+    isActiveMenu.value =
+      newVal === itemKey.value || (newVal as string).startsWith(itemKey.value + '-')
   }
 )
-const itemClick = (event, item, index?) => {
+const itemClick = (event: any, item: any, index?: any) => {
   if (item.disabled) {
     event.preventDefault()
     return
@@ -72,7 +74,7 @@ const itemClick = (event, item, index?) => {
   setActiveMenuItem(foundItemKey)
 }
 
-const checkActiveRoute = (item) => {
+const checkActiveRoute = (item: any) => {
   return route.path === item.to
 }
 </script>

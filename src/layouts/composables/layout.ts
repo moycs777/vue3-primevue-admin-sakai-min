@@ -10,13 +10,14 @@ const layoutConfig = reactive({
   activeMenuItem: null
 })
 
-const layoutState = reactive({
+const layoutState = reactive<any>({
   staticMenuDesktopInactive: false,
   overlayMenuActive: false,
   profileSidebarVisible: false,
   configSidebarVisible: false,
   staticMenuMobileActive: false,
-  menuHoverActive: false
+  menuHoverActive: false,
+  activeMenuItem: null
 })
 
 export function useLayout() {
@@ -34,6 +35,8 @@ export function useLayout() {
   }
 
   const onMenuToggle = () => {
+    // layoutState.overlayMenuActive = !layoutState.overlayMenuActive
+    // console.log('-- onMenuToggle layoutState.overlayMenuActive', layoutState.overlayMenuActive)
     if (layoutConfig.menuMode === 'overlay') {
       layoutState.overlayMenuActive = !layoutState.overlayMenuActive
     }
