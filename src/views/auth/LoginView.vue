@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLayout } from '../../layouts/composables/layout'
+import { useLayout } from '@/layouts/composables/layout'
 // import { useLayout } from '@/layout/composables/layout';
 import { ref, computed } from 'vue'
 // import AppConfig from '@/layout/AppConfig.vue';
